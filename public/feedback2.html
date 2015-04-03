@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<link rel="stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/0.8.0/angularfire.min.js"></script>
+</head>
+
+<body ng-controller="userController">
+<div class="container">
+
+<h3>Team 18 Feedback Form<br>
+</h3>
+<hr>
+Click <a target="_blank" href="https://errandrunner.herokuapp.com">here</a> to open our application in another tab<br>
+Click <a href="#">here</a> to watch our overview video.<br>
+
+<h3>Feedback</h3>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Edit</th>
+      <th>School</th>
+      
+      <th>Start</th>
+      <th>Stop</th>
+      <th>Continue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="user in users">
+      <td>
+        <button class="btn" ng-click="editUser(user.$id)">
+          <span class="glyphicon glyphicon-pencil"></span>Edit
+        </button>
+      </td>
+     
+      <td>{{ user.school }}</td>
+      
+      <td>{{ user.start }}</td>
+      <td>{{ user.stop }}</td>
+      <td>{{ user.cont }}</td>
+      <td>
+        <button class="btn" ng-click="deleteUser($index)">
+          <span class="glyphicon glyphicon-pencil"></span>Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+<button class="btn btn-success" ng-click="editUser('new')">
+<span class="glyphicon glyphicon-user"></span>Leave New Feedback
+</button>
+<hr>
+
+
+<h3 ng-show="edit">Leave Feedback:</h3>
+<h3 ng-hide="edit">Edit User:</h3>
+
+<form class="form-horizontal">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">First Name:</label>
+    <div class="col-sm-10">
+    <input type="text" ng-model="newuser.fName" ng-disabled="!edit" placeholder="First Name">
+    </div>
+  </div> 
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Last Name:</label>
+    <div class="col-sm-10">
+    <input type="text" ng-model="newuser.lName" ng-disabled="!edit" placeholder="Last Name">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">School:</label>
+    <div class="col-sm-10">
+    <input type="text" ng-model="newuser.school" ng-disabled="!edit" placeholder="School">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Email:</label>
+    <div class="col-sm-10">
+    <input type="text" ng-model="newuser.email" ng-disabled="!edit" placeholder="Email">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">What should we START doing to improve our app</label>
+    <div class="col-lg-10">
+    <input type="text" ng-model="newuser.start" ng-disabled="!edit" placeholder="Feedback">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">What should we STOP doing to improve our app</label>
+    <div class="col-lg-10">
+    <input type="text" ng-model="newuser.stop" ng-disabled="!edit" placeholder="Feedback">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">What should we CONTINUE doing to improve our app</label>
+    <div class="col-lg-10">
+    <input type="text" ng-model="newuser.cont" ng-disabled="!edit" placeholder="Feedback">
+    </div>
+  </div>
+</form>
+
+<hr>
+<button class="btn btn-success"  ng-click="save()">
+<span class="glyphicon glyphicon-save"></span>Save Feedback
+</button>
+<hr>
+Please take a look at this team's app. <br/>
+<a href="https://piomt.herokuapp.com/feedback.html">Team 17</a><br/>
+<a href="https://popcart.herokuapp.com/feedback.html">Team 19</a>
+
+
+</div>
+
+<script>
+   var myApp = angular.module("myApp", ["firebase"]);
+    myApp.controller('userController', ['$scope', '$firebase',
+        
+        function($scope, $firebase) {
+    $scope.newuser = {};
+    $scope.fName = '';
+    $scope.lName = '';
+    $scope.school = '';
+    $scope.email = '';
+    $scope.start = '';
+    $scope.stop = '';
+    $scope.cont = '';
+    
+    //We can replace this with a Firebase url later on. 
+    var ref = new Firebase("https://benjaminlow.firebaseio.com");
+    $scope.users = $firebase(ref.child("user")).$asArray(); 
+    /*
+    $scope.users = [
+        {id:1, fName:'Hege'  , lName:"Pege" },
+        {id:2, fName:'Kim'   , lName:"Pim" },
+        {id:3, fName:'Jack'  , lName:"Jones" },
+        {id:4, fName:'John'  , lName:"Doe" },
+        {id:5, fName:'Peter' , lName:"Pan" }
+    ];
+    */
+    
+    $scope.edit = true;
+    $scope.error = false;
+    $scope.incomplete = false;  
+    
+    
+    $scope.editUser = function(id) {
+        $scope.currentId = id;
+        if (id == 'new') {
+            $scope.edit = true;
+            $scope.incomplete = true;
+            $scope.newuser.fName = '';
+            $scope.newuser.lName = '';
+            $scope.newuser.school = '';
+            $scope.newuser.email = '';
+            $scope.newuser.start = '';
+            $scope.newuser.stop = '';
+            $scope.newuser.cont = '';
+            console.log("new user.");
+        } else {
+            $scope.edit = true;
+            $scope.newuser = $firebase(ref.child("user").child(id)).$asObject();
+            console.log("existing user.");
+        }
+    };
+    
+
+    $scope.save = function(){
+      //Add new if no index is passed in.
+      
+      if($scope.currentId=='new'){
+        //Using the array length as the next index while prototyping. 
+         $scope.users.$add($scope.newuser);
+      }
+      else{
+        $scope.newuser.$save();
+      }
+    };
+    
+    $scope.deleteUser = function(index){
+      $scope.users.$remove(index);
+      console.log("removing "+index);
+    }
+    
+    $scope.go = function(){
+     window.open('https://is429assignment2.herokuapp.com/feedback.html','_blank');
+    };
+    
+    }]);
+
+</script>
+  <!--Here is a way to take a quick peek at your data. 
+  Users: {{users}}<br>
+  newuser: {{newuser}}
+  -->
+  
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59566352-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+</body>
+</html>
