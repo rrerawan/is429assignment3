@@ -1,0 +1,587 @@
+<html ng-app="requestDelivery">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dine.in - Serving you better</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/agency.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+ 
+     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.17/angular.min.js"></script>
+     <script src="//cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
+     <script src="//cdn.firebase.com/js/simple-login/1.6.3/firebase-simple-login.js"></script>
+     <script src="//cdn.firebase.com/libs/angularfire/0.8.0/angularfire.min.js"></script>
+ 
+	<script src="lib/angular-facebook.js"></script>
+    </head>
+  <body id="page-top" class="index">
+  <nav class="navbar navbar-default navbar-fixed-top navbar-shrink">
+        <div class="container" ng-controller="fbController">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="./index.html">Dine.in</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                 <!--class="page-scroll"-->
+                    <li class="hidden">
+                        <a class="page-scroll" href="#page-top"></a>
+                    </li>
+                    
+                    
+                           <li  data-ng-show="logged" data-ng-disabled="!facebookReady">
+                        <a>{{user.name}}</a>
+                    </li>
+                    <li>
+                        <a data-ng-show="!logged" data-ng-disabled="!facebookReady"  href="#subscription"  ng-click="IntentLogin()">Sign In <strong></strong></a>
+                        <a  data-ng-show="logged" data-ng-disabled="!facebookReady" href="" ng-click="logout()">Logout</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+   
+        
+    <section class="bg-light-gray" style="margin-top:-50px;">
+        <div class="container" >
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <!--<h2 class="section-heading">Sign up</h2>-->
+                    <!--<h3 class="section-subheading text-muted">Dine.in is a one stop solution for inconvience faced.......</h3>-->
+                </div>
+            </div>
+            
+
+                  <!--<div class="container">-->
+            <div>
+                <div class="row" ng-controller="TodoController">
+                    <div  class="col-lg-12 text-center">
+                        <h2 class="section-heading">Choose your meal</h2>
+                        <h5>{{getCurrentDate}}</h5>
+                        <h3 class="section-subheading text-muted">Remaining meals: 7 </h3>
+						                        <h3 class="section-subheading text-muted">Try the mobile experience <a href="http://mobiletest.me/htc_one_emulator/#u=//dinein.herokuapp.com/mobile.html">here!</a> </h3>
+
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal1" ng-controller="TodoController" ng-click="addOrder('Laksa','Paranakan')" class="portfolio-link" data-toggle="modal">
+                        <!--<div class="portfolio-hover">-->
+                            <!--<div class="portfolio-hover-content">-->
+                            <!--    <i class="fa fa-plus fa-3x"></i>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <img src="img/food/food1.png" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Laksa</h4>
+                        <!--<p class="text-muted">Graphic Design</p>-->
+                    </div>
+                </div>
+                
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal2" ng-controller="TodoController" ng-click="addOrder('Chicken Rice','Chinese')" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <!--<div class="portfolio-hover-content">-->
+                            <!--    <i class="fa fa-plus fa-3x"></i>-->
+                            <!--</div>-->
+                        </div>
+                        <img src="img/food/food2.png" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Chicken Rice</h4>
+                        <!--<p class="text-muted">Website Design</p>-->
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal3" ng-controller="TodoController" ng-click="addOrder('Char Kway Teow','Chinese')" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <!--<div class="portfolio-hover-content">-->
+                            <!--    <i class="fa fa-plus fa-3x"></i>-->
+                            <!--</div>-->
+                        </div>
+                        <img src="img/food/food3.png" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Char Kway Teow</h4>
+                        <!--<p class="text-muted">Website Design</p>-->
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal4" ng-controller="TodoController" ng-click="addOrder('Indonesian Chicken Set','Malay')" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <!--<div class="portfolio-hover-content">-->
+                            <!--    <i class="fa fa-plus fa-3x"></i>-->
+                            <!--</div>-->
+                        </div>
+                        <img src="img/food/food4.png" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Indonesia Chicken Set</h4>
+                        <!--<p class="text-muted">Website Design</p>-->
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal5" ng-controller="TodoController" ng-click="addOrder('Chicken Cutlet','Western')" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <!--<div class="portfolio-hover-content">-->
+                            <!--    <i class="fa fa-plus fa-3x"></i>-->
+                            <!--</div>-->
+                        </div>
+                        <img src="img/food/food5.png" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Chicken Cutlet</h4>
+                        <!--<p class="text-muted">Website Design</p>-->
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal6" ng-controller="TodoController" ng-click="addOrder('Surprise Me','Surprise Me')" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <!--<div class="portfolio-hover-content">-->
+                            <!--    <i class="fa fa-plus fa-3x"></i>-->
+                            <!--</div>-->
+                        </div>
+                        <img src="img/food/food6.png" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Surprise me</h4>
+                        <!--<p class="text-muted">Website Design</p>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+        
+ <!-- Portfolio Modal 1 -->
+    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <!-- Project Details Go Here -->
+                            <!--<h2>Project Name</h2>--><br><br><br><br><br><br><br>
+                            <p>You have selected <b>Laksa</b></p>
+                            <p class="item-intro text-muted">Food is on the way!</p>
+                            <img style="margin-left:auto; margin-right:auto;" class="img-responsive"  src="img/deliveryico.png" alt="">
+                             
+                            <!--<p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>-->
+                            <!--<p>-->
+                            <!--    <strong>Want these icons in this portfolio item sample?</strong>You can download 60 of them for free, courtesy of <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">RoundIcons.com</a>, or you can purchase the 1500 icon set <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">here</a>.</p>-->
+                            <!--<ul class="list-inline">-->
+                            <!--    <li>Date: July 2014</li>-->
+                            <!--    <li>Client: Round Icons</li>-->
+                            <!--    <li>Category: Graphic Design</li>-->
+                            <!--</ul>-->
+                            <!--<button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portfolio Modal 2 -->
+    <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <!-- Project Details Go Here -->
+                            <!--<h2>Project Name</h2>--><br><br><br><br><br><br><br>
+                            <p>You have selected <b>Chicken Rice</b></p>
+                            <p class="item-intro text-muted">Food is on the way!</p>
+                            <img style="margin-left:auto; margin-right:auto;" class="img-responsive" src="img/deliveryico.png" alt="">
+                            <!--<p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>-->
+                            <!--<p>-->
+                            <!--    <strong>Want these icons in this portfolio item sample?</strong>You can download 60 of them for free, courtesy of <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">RoundIcons.com</a>, or you can purchase the 1500 icon set <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">here</a>.</p>-->
+                            <!--<ul class="list-inline">-->
+                            <!--    <li>Date: July 2014</li>-->
+                            <!--    <li>Client: Round Icons</li>-->
+                            <!--    <li>Category: Graphic Design</li>-->
+                            <!--</ul>-->
+                            <!--<button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portfolio Modal 3 -->
+    <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <!-- Project Details Go Here -->
+                            <!--<h2>Project Name</h2>--><br><br><br><br><br><br><br>
+                            <p>You have selected <b>Char Kway Teow</b></p>
+                            <p class="item-intro text-muted">Food is on the way!</p>
+                            <img style="margin-left:auto; margin-right:auto;" class="img-responsive" src="img/deliveryico.png" alt="">
+                            <!--<p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>-->
+                            <!--<p>-->
+                            <!--    <strong>Want these icons in this portfolio item sample?</strong>You can download 60 of them for free, courtesy of <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">RoundIcons.com</a>, or you can purchase the 1500 icon set <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">here</a>.</p>-->
+                            <!--<ul class="list-inline">-->
+                            <!--    <li>Date: July 2014</li>-->
+                            <!--    <li>Client: Round Icons</li>-->
+                            <!--    <li>Category: Graphic Design</li>-->
+                            <!--</ul>-->
+                            <!--<button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portfolio Modal 4 -->
+    <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <!-- Project Details Go Here -->
+                            <!--<h2>Project Name</h2>--><br><br><br><br><br><br><br>
+                            <p>You have selected <b>Indonesia Chicken Set</b></p>
+                            <p class="item-intro text-muted">Food is on the way!</p>
+                            <img style="margin-left:auto; margin-right:auto;" class="img-responsive" src="img/deliveryico.png" alt="">
+                            <!--<p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>-->
+                            <!--<p>-->
+                            <!--    <strong>Want these icons in this portfolio item sample?</strong>You can download 60 of them for free, courtesy of <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">RoundIcons.com</a>, or you can purchase the 1500 icon set <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">here</a>.</p>-->
+                            <!--<ul class="list-inline">-->
+                            <!--    <li>Date: July 2014</li>-->
+                            <!--    <li>Client: Round Icons</li>-->
+                            <!--    <li>Category: Graphic Design</li>-->
+                            <!--</ul>-->
+                            <!--<button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portfolio Modal 5 -->
+    <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <!-- Project Details Go Here -->
+                            <!--<h2>Project Name</h2>--><br><br><br><br><br><br><br>
+                            <p>You have selected <b>Chicken Cutlet</b></p>
+                            <p class="item-intro text-muted">Food is on the way!</p>
+                            <img style="margin-left:auto; margin-right:auto;" class="img-responsive" src="img/deliveryico.png" alt="">
+                            <!--<p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>-->
+                            <!--<p>-->
+                            <!--    <strong>Want these icons in this portfolio item sample?</strong>You can download 60 of them for free, courtesy of <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">RoundIcons.com</a>, or you can purchase the 1500 icon set <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">here</a>.</p>-->
+                            <!--<ul class="list-inline">-->
+                            <!--    <li>Date: July 2014</li>-->
+                            <!--    <li>Client: Round Icons</li>-->
+                            <!--    <li>Category: Graphic Design</li>-->
+                            <!--</ul>-->
+                            <!--<button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portfolio Modal 6 -->
+    <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <!-- Project Details Go Here -->
+                            <!--<h2>Project Name</h2>--><br><br><br><br><br><br><br>
+                            <p>BE <b>SURPRISED!</b></p>
+                            <p class="item-intro text-muted">Food is on the way!</p>
+                            <img style="margin-left:auto; margin-right:auto;" class="img-responsive" src="img/deliveryico.png" alt="">
+                            <!--<p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>-->
+                            <!--<p>-->
+                            <!--    <strong>Want these icons in this portfolio item sample?</strong>You can download 60 of them for free, courtesy of <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">RoundIcons.com</a>, or you can purchase the 1500 icon set <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">here</a>.</p>-->
+                            <!--<ul class="list-inline">-->
+                            <!--    <li>Date: July 2014</li>-->
+                            <!--    <li>Client: Round Icons</li>-->
+                            <!--    <li>Category: Graphic Design</li>-->
+                            <!--</ul>-->
+                            <!--<button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ <script>
+           angular.element(document).ready(function() {
+				//var routeData = document.URL.split("?")[0];
+			    //window.location.href = routeData+"";
+			});
+					  
+
+			angular.module("requestDelivery", ["firebase", "facebook"])
+            
+            .config(function(FacebookProvider) {
+              FacebookProvider.init('766382243457172');
+            })
+        
+       .controller('fbController', [
+            '$scope',
+            '$timeout',
+            'Facebook',
+            function($scope, $timeout, Facebook) {
+
+                // Define user empty data :/
+                $scope.user = {};
+
+                // Define img
+                $scope.image = "";
+
+                // Defining user logged status
+                $scope.logged = false;
+
+
+                /**
+                 * Watch for Facebook to be ready.
+                 * There's also the event that could be used
+                 */
+                $scope.$watch(
+                        function() {
+                            return Facebook.isReady();
+                        },
+                        function(newVal) {
+                            if (newVal)
+                                $scope.facebookReady = true;
+                        }
+                );
+
+                var userIsConnected = false;
+
+                Facebook.getLoginStatus(function(response) {
+                    if (response.status == 'connected') {
+                        userIsConnected = true;
+                        $scope.$apply(function() {
+                            $scope.userIsConnected = true;
+                            $scope.logged = true;
+
+                        });
+                    }
+                });
+
+                /**
+                 * IntentLogin
+                 */
+                $scope.IntentLogin = function() {
+                    if (!userIsConnected) {
+                        $scope.login();
+                    }
+                };
+
+                /**
+                 * Login
+                 */
+                $scope.login = function() {
+                    Facebook.login(function(response) {
+                        if (response.status == 'connected') {
+                            $scope.logged = true;
+                            $scope.me();
+                            $scope.picture();
+                        }
+
+                    });
+                };
+
+                /**
+                 * me 
+                 */
+                $scope.me = function() {
+                    Facebook.api('/me', function(response) {
+                        /**
+                         * Using $scope.$apply since this happens outside angular framework.
+                         */
+                        $scope.$apply(function() {
+                            $scope.user = response;
+                        });
+
+                    });
+                };
+                /**
+                 * me 
+                 */
+                $scope.picture = function() {
+                    Facebook.api('/me/picture', {
+                        "redirect": false,
+                        "height": 200,
+                        "width": 200,
+                        "type": "normal"
+                    },
+                    function(response) {
+                        if (response && !response.error) {
+                            /* handle the result */
+                            $scope.$apply(function() {
+                                $scope.image = response.data.url;
+                            });
+                        }
+                    });
+                };
+                /**
+                 * Logout
+                 */
+                $scope.logout = function() {
+                    Facebook.logout(function() {
+                        $scope.$apply(function() {
+                            $scope.user = {};
+                            $scope.logged = false;
+                        });
+					window.location.href = "index.html";
+                    });
+                }
+                /**
+                 * Taking approach of Events :D
+                 */
+                $scope.$on('Facebook:statusChange', function(ev, data) {
+                    console.log('Status: ', data);
+                    if (data.status == 'connected') {
+                        $scope.$apply(function() {
+                            $scope.me();
+                            $scope.picture();
+                        });
+                    } else {
+                        $scope.$apply(function() {
+
+
+                            // Dismiss byebye message after two seconds
+                            $timeout(function() {
+                                $scope.logout();
+                            }, 500000000);
+                        });
+                    }
+                });
+
+			}
+            
+        ])
+		
+		
+		.controller('TodoController', ['$scope', '$firebase', function($scope, $firebase) {
+                var ref = new Firebase("//assignment-2.firebaseio.com/");
+                var sync = $firebase(ref);
+				$scope.username = localStorage.getItem('user');
+				$scope.id = localStorage.getItem('id');
+				var currentDate = new Date();
+		 
+                $scope.addOrder = function(meal, cuisine) {
+                    var usersRef = ref.child("meal");
+                    usersRef.push({
+						user: $scope.username,
+						id: $scope.id,
+                        meal: meal,
+                        cuisine: cuisine,
+						deliveryDate: currentDate + ""
+
+                    });
+                }
+    
+            }
+			]);
+			
+        </script>
+ 
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-60527270-1', 'auto');
+  ga('send', 'pageview');
+
+		</script>
+        <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="js/classie.js"></script>
+    <script src="js/cbpAnimatedHeader.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+ 
+    <!-- Custom Theme JavaScript -->
+    <script src="js/agency.js"></script>
+    </body>
+</html>

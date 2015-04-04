@@ -1,0 +1,475 @@
+<html ng-app="sampleApp">
+    <head >
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dine.in - Serving you better</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/agency.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+ 
+     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.17/angular.min.js"></script>
+     <script src="//cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
+     <script src="//cdn.firebase.com/js/simple-login/1.6.3/firebase-simple-login.js"></script>
+     <script src="//cdn.firebase.com/libs/angularfire/0.8.0/angularfire.min.js"></script>
+ 
+        <script src="lib/angular-facebook.js"></script>
+    </head>
+  <body  id="page-top" class="index">
+  <nav class="navbar navbar-default navbar-fixed-top navbar-shrink">
+        <div class="container"  ng-controller="fbController">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="./index.html">Dine.in</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                 <!--class="page-scroll"-->
+                    <li class="hidden">
+                        <a class="page-scroll" href="#page-top"></a>
+                    </li>
+                     <li  data-ng-show="logged" data-ng-disabled="!facebookReady">
+                        <a>{{user.name}}</a>
+                    </li>
+                    <li>
+                        <a data-ng-show="!logged" data-ng-disabled="!facebookReady"  href="#subscription"  ng-click="IntentLogin()">Sign In <strong></strong></a>
+                        <a  data-ng-show="logged" data-ng-disabled="!facebookReady" href="" ng-click="logout()">Logout</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    
+    
+    
+<section class="bg-light-gray" data-ng-controller="formCtrl">
+        <div class="container"  style="margin-top:-50px;">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Sign up</h2>
+                    <!--<h3 class="section-subheading text-muted">Dine.in is a one stop solution for inconvience faced.......</h3>-->
+                </div>
+            </div>
+            <br>
+        <div>
+        <!-- push a new message into the array -->
+        
+        <br>
+            
+            
+            
+        
+			<div style="width:50%;  margin-left:auto; margin-right:auto; text-align:center; ">
+			<div data-ng-show="logged" data-ng-disabled="!facebookReady">
+                LOG IN NOW
+ 
+            </div>
+            <div  data-ng-show="!logged" data-ng-disabled="!facebookReady">
+            <b>Username: {{username}}</b>
+            </div><br>
+			
+            <form ng-submit="checkPostalCode(postalCode, address)">
+                <table style="margin-left :auto;  margin-right:auto;">
+                    <tr>
+                        <td style="width:200px;">
+                            Postal Code:
+                        </td>
+                        <td>
+                            <label style="float:left;">S</label><input style="width:88%; float:right;" class="form-control" ng-model="postalCode" />
+                        </td>
+                        <td><i id="addressValidated1" class="fa fa-check" style="display:none;"></i></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Address:
+                        </td>
+                        <td>
+                            <input class="form-control" ng-model="address" />
+                        </td>
+                        <td><i id="addressValidated2" class="fa fa-check" style="display:none;"></i></td>
+                    </tr>
+                </table>
+                <br>
+                <button class="btn btn-default" type="submit">Check Availability</button>
+                <br><br><br>
+                <div id="alertboxPostalCode" class="alert alert-danger" style="width:500px; display:none; margin-left:auto; margin-right:auto;">
+                           <a href="#" class="close" data-dismiss="alert">
+                              &times;
+                           </a>
+                 <strong>Sorry!</strong> Dine.in does not provide its services at your location yet!
+                </div>
+            </form>
+			</div>
+			<hr>
+			<div id="secondStep" style="width:50%; margin-left:auto; margin-right:auto; text-align:center; display:none; ">
+            <form  ng-submit="createAccount(email, dprefhalal, dprefvegetarian, dprefnobeef, dprefnochicken, comments)">
+			<br>
+                <table style="margin-left:auto; margin-right:auto;">
+                    <tr>
+                        <td style="width:200px;">
+                            Email:
+                        </td>
+                        <td>
+                            <input class="form-control" ng-model="email" />
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                     <table style="margin-left:auto; margin-right:auto;">
+                        <tr>
+                            <td>
+                                Dietary preferences:
+                            </td>
+                            <td>
+                                <input type="checkbox" ng-model="dprefhalal" >Halal
+                            </td>
+                            <td>
+                                <input type="checkbox" ng-model="dprefvegetarian"> Vegetarian
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="checkbox" ng-model="dprefnobeef"> No beef
+                            </td>
+                            <td>
+                                <input type="checkbox" ng-model="dprefnochicken"> No chicken
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Any other comments:
+                            </td>
+                            <td colspan='2'>
+                                <textarea ng-model="comments" rows="8" cols="40"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                <br><br>
+				<font color="red"><b>Please you use paypal account to make your payment<br> Username: dineinTest@gmail.com <br> Password: 12345678 </b></font>
+                <br><button class="btn btn-default" type="submit">Make Payment</button>
+				<!--<a class="btn btn-default" href="payment/initiate/2999">Make payment</a>-->
+
+            </form>
+            </div>
+            </div>
+            </div>
+            </section>
+        
+        <script>
+            window.onload = function() {
+            
+            };
+ 
+          
+            var postalCode = localStorage.getItem('postalcode');
+            //var packages = localStorage.getItem('packages');
+            
+            angular.module("sampleApp", ["firebase", "facebook"])
+            
+            .config(function(FacebookProvider) {
+              FacebookProvider.init('766382243457172');
+            })
+        
+       .controller('fbController', [
+            '$scope',
+            '$timeout',
+            'Facebook',
+            function($scope, $timeout, Facebook) {
+
+                // Define user empty data :/
+                $scope.user = {};
+
+                // Define img
+                $scope.image = "";
+
+                // Defining user logged status
+                $scope.logged = false;
+
+
+                /**
+                 * Watch for Facebook to be ready.
+                 * There's also the event that could be used
+                 */
+                $scope.$watch(
+                        function() {
+                            return Facebook.isReady();
+                        },
+                        function(newVal) {
+                            if (newVal)
+                                $scope.facebookReady = true;
+                        }
+                );
+
+                var userIsConnected = false;
+
+                Facebook.getLoginStatus(function(response) {
+                    if (response.status == 'connected') {
+                        userIsConnected = true;
+                        $scope.$apply(function() {
+                            $scope.userIsConnected = true;
+                            $scope.logged = true;
+
+                        });
+                    }
+                });
+
+                /**
+                 * IntentLogin
+                 */
+                $scope.IntentLogin = function() {
+                    if (!userIsConnected) {
+                        $scope.login();
+                    }
+                };
+
+                /**
+                 * Login
+                 */
+                $scope.login = function() {
+                    Facebook.login(function(response) {
+                        if (response.status == 'connected') {
+                            $scope.logged = true;
+                            $scope.me();
+                            $scope.picture();
+                        }
+
+                    });
+                };
+
+                /**
+                 * me 
+                 */
+                $scope.me = function() {
+                    Facebook.api('/me', function(response) {
+                        /**
+                         * Using $scope.$apply since this happens outside angular framework.
+                         */
+                        $scope.$apply(function() {
+                            $scope.user = response;
+                        });
+
+                    });
+                };
+                /**
+                 * me 
+                 */
+                $scope.picture = function() {
+                    Facebook.api('/me/picture', {
+                        "redirect": false,
+                        "height": 200,
+                        "width": 200,
+                        "type": "normal"
+                    },
+                    function(response) {
+                        if (response && !response.error) {
+                            /* handle the result */
+                            $scope.$apply(function() {
+                                $scope.image = response.data.url;
+                            });
+                        }
+                    });
+                };
+                /**
+                 * Logout
+                 */
+                $scope.logout = function() {
+                    Facebook.logout(function() {
+                        $scope.$apply(function() {
+                            $scope.user = {};
+                            $scope.logged = false;
+                        });
+					window.location.href = "index.html";
+                    });
+                }
+                /**
+                 * Taking approach of Events :D
+                 */
+                $scope.$on('Facebook:statusChange', function(ev, data) {
+                    console.log('Status: ', data);
+                    if (data.status == 'connected') {
+                        $scope.$apply(function() {
+                            $scope.me();
+                            $scope.picture();
+                        });
+                    } else {
+                        $scope.$apply(function() {
+
+
+                            // Dismiss byebye message after two seconds
+                            $timeout(function() {
+                                $scope.logout();
+                            }, 500000000);
+                        });
+                    }
+                });
+
+
+            }
+        ])
+             
+
+            
+            .controller('formCtrl', ['$scope', '$firebase', function($scope, $firebase) {
+                var ref = new Firebase("//assignment-2.firebaseio.com/");
+                var sync = $firebase(ref);
+                
+				$scope.plan = localStorage.getItem('plan');
+				console.log($scope.plan);
+
+				$scope.username = localStorage.getItem('user');
+				$scope.id = localStorage.getItem('id');
+                  
+                $scope.unavailarea = sync.$asArray();
+                
+                $scope.checkPostalCode =function(postalCode, address) {
+
+                    document.getElementById("alertboxPostalCode").style.display = "none";
+                    document.getElementById("addressValidated1").style.display = "none";
+                    document.getElementById("addressValidated2").style.display = "none";
+					
+					var area;
+					 
+						area = postalCode.substring(0,2);
+					 
+					
+                     
+                    //$scope.unavailarea.$add({unavailarea: area});   
+                    if(area==01||area==02||area==03||area==04||area==05||area==06) {
+                    document.getElementById("addressValidated1").style.display = "block";
+                    document.getElementById("addressValidated2").style.display = "block";                        
+                        msg = 'Delivery is available to your address!';
+                        //Go next page
+                        localStorage.setItem('postalcode', postalCode);
+                        localStorage.setItem('address', address);
+						//document.getElementById("secondStep").style.display = "block";
+						$("#secondStep").slideDown();
+                        
+                    } else {
+                        document.getElementById("alertboxPostalCode").style.display = "block";
+                        var usersRef = ref.child("unavailarea");
+                        usersRef.push({unavailarea: postalCode,
+										username: $scope.username,
+										id: $scope.id});
+                        msg = 'We currently do not deliver to your area.';
+                        
+                    }
+                }
+                
+                $scope.createAccount = function(email, dprefhalal, dprefvegetarian, dprefnobeef, dprefnochicken, comments) {
+                    
+                    if(email!='') {
+                         
+                                if(dprefhalal!=true) {
+                                    dprefhalal=false;
+                                }
+                                if(dprefvegetarian!=true) {
+                                    dprefvegetarian=false;
+                                }
+                                if(dprefnobeef!=true) {
+                                    dprefnobeef=false;
+                                }
+                                if(dprefnochicken!=true) {
+                                    dprefnochicken=false;
+                                }
+                                if(comments==undefined) {
+                                    comments='';
+                                }
+                                // alert(dprefhalal);
+                                var usersRef = ref.child("useracct");
+                                usersRef.push({
+                                    email: email,
+                                    id: $scope.id,
+                                    name: $scope.username,
+                                    address: localStorage.getItem('address'),
+                                    postalCode: localStorage.getItem('postalcode'),
+									plan: $scope.plan,
+                                    comments: comments,
+                                    // dpref: {
+                                        halal: dprefhalal,
+                                        vegetarian: dprefvegetarian,
+                                        beef: dprefnobeef,
+                                        chicken: dprefnochicken
+                                        
+                                    // } 
+                                });
+								
+								window.location.href = "payment/initiate/2999"; 
+                          
+                    } else {
+                    //   alert('Please fill in all fields');
+                    }
+                }
+                
+           
+    
+            }
+            ]);
+            
+            
+            
+          
+
+       
+            //angular.module('sampleApp', ['facebook'])
+
+        
+       
+          
+        </script>
+    <p>
+        <script>
+         
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-60527270-1', 'auto');
+  ga('send', 'pageview');
+
+        </script>
+    </p>
+    
+    
+        <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="js/classie.js"></script>
+    <script src="js/cbpAnimatedHeader.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+ 
+    <!-- Custom Theme JavaScript -->
+    <script src="js/agency.js"></script>
+    </body>
+</html>

@@ -1,0 +1,48 @@
+<html ng-app="sampleApp">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.17/angular.min.js"></script>
+    <script src="https://cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
+    <script src="https://cdn.firebase.com/js/simple-login/1.6.3/firebase-simple-login.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/0.8.0/angularfire.min.js"></script>
+  </head>
+  <body>
+   
+    <h3>Enter your postal code</h3>
+    
+    <div ng-controller="formCtrl">
+    <!-- push a new message into the array -->
+    <form ng-submit="checkPostalCode(postalCode)">
+      <input ng-model="postalCode" />
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  <script>
+      var app = angular.module("sampleApp", ["firebase"]);
+      var address = "http://uakk8c74aebe.amandalee2012.koding.io/Assignment2/";
+      app.controller("formCtrl", function($scope, $firebase) {
+        var ref = new Firebase("https://assignment-2.firebaseio.com/");
+        var sync = $firebase(ref);
+        $scope.unavailarea = sync.$asArray();
+        $scope.checkPostalCode = function(postalCode) {
+            var area = postalCode.substring(0,2);
+            //$scope.unavailarea.$add({unavailarea: area});   
+            if(area==01||area==02||area==03||area==04||area==05||area==06) {
+                
+                //Go next page
+                localStorage.setItem('postalcode', postalCode)
+                window.location.href = address+"form.html";
+                
+            } else {
+                
+                var usersRef = ref.child("unavailarea");
+                usersRef.push({unavailarea: area});
+                document.write('We currently do not deliver to your area. TOO BAD TOO SAD');
+                
+            }
+        }
+      });
+      
+  </script>
+    
+  </body>
+</html>

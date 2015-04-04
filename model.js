@@ -35,7 +35,7 @@ module.exports = {
                 {
                     "amount": {
                         "currency": "SGD",
-                        "value": "30.00"
+                        "value": "29.99"
                     },
                     "cycles": "0",
                     "frequency": "MONTH",
@@ -46,7 +46,7 @@ module.exports = {
                 {
                     "amount": {
                         "currency": "SGD",
-                        "value": "30.00"
+                        "value": "19.99"
                     },
                     "cycles": "1",
                     "frequency": "MONTH",
@@ -58,7 +58,7 @@ module.exports = {
             "type": "INFINITE"
         },
         '5999': {
-            "description": "Hardcore Plan",
+            "description": "Premium Plan",
             "merchant_preferences": {
                 "auto_bill_amount": "yes",
                 "cancel_url": cancel_url,
@@ -70,12 +70,12 @@ module.exports = {
                     "value": "0"
                 }
             },
-            "name": "Hardcore Plan",
+            "name": "Premium Plan",
             "payment_definitions": [
                 {
                     "amount": {
                         "currency": "SGD",
-                        "value": "90.00"
+                        "value": "59.99"
                     },
                     "cycles": "0",
                     "frequency": "MONTH",
@@ -86,7 +86,7 @@ module.exports = {
                 {
                     "amount": {
                         "currency": "SGD",
-                        "value": "90.00"
+                        "value": "39.99"
                     },
                     "cycles": "1",
                     "frequency": "MONTH",

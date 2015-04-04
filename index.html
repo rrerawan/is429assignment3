@@ -1,0 +1,959 @@
+
+
+<!DOCTYPE html>
+<html lang="en" ng-app="homePage">
+
+<head >
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dine.in - Serving you better</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/agency.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.17/angular.min.js"></script>
+     <script src="//cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
+     <script src="//cdn.firebase.com/js/simple-login/1.6.3/firebase-simple-login.js"></script>
+     <script src="//cdn.firebase.com/libs/angularfire/0.8.0/angularfire.min.js"></script>
+ 
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="lib/angular-facebook.js"></script>
+</head>
+
+<body id="page-top" class="index" >
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container" ng-controller="mainCtrl">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">Dine.in</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                 <!--class="page-scroll"-->
+                    <li class="hidden">
+                        <a class="page-scroll" href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#aboutus">About Us</a>
+                    </li>
+               
+                    <li>
+                        <a class="page-scroll" href="#howitworks">How it works</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#subscription">Subscription</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#team">Team</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">Contact Us</a>
+                    </li>
+                    <li style="margin-left:100px">
+                        <a class="page-scroll" href="">|</a>
+                    </li>
+                    <!--<li><a class="page-scroll" href="#subscription">Sign Up</a></li>-->
+                    <!--<li class="dropdown">-->
+                    <!--data-toggle="dropdown"-->
+                    <li  data-ng-show="logged" data-ng-disabled="!facebookReady">
+                        <a>{{user.name}}</a>
+                    </li>
+                    <li>
+                        <a data-ng-show="!logged" data-ng-disabled="!facebookReady" ng-click="IntentLogin()" href="">Sign In <strong></strong></a>
+                        <a  data-ng-show="logged" data-ng-disabled="!facebookReady" href="" ng-click="logout()">Logout</a>
+                    </li>
+                        
+                     
+                    
+						<!--<div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">-->
+						<!--	<form method="post" action="login" accept-charset="UTF-8">-->
+						<!--		<input class="form-control" style="margin-bottom: 15px; width:200px;" type="text" placeholder="Username" id="username" name="username">-->
+						<!--		<input class="form-control" style="margin-bottom: 15px;" type="password" placeholder="Password" id="password" name="password">-->
+						<!--		<input style="float: left; margin-right: 10px;" type="checkbox" name="remember-me" id="remember-me" value="1">-->
+						<!--		<label class="string optional" for="user_remember_me"> Remember me</label>-->
+						<!--		<input class="btn btn-primary btn-block" type="submit" id="sign-in" value="Sign In">-->
+						<!--		<br>-->
+						<!--	</form>-->
+						<!--</div>-->
+                    <!--</li>-->
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-lead-in">Welcome To Dine.in!</div>
+                <div class="intro-heading">Your perfect workplace dine in solution</div>
+                <a href="#aboutus" class="page-scroll btn btn-xl">Tell Me More</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Services Section -->
+    <section id="aboutus"  class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">About</h2>
+                    <h3 class="section-subheading text-muted">Dine.in is a one stop solution for inconvenience of having to battle the lunchtime crowd. We offer a meal subscription service where you can request for a meal and we bring it right to you. That means that you no longer have to battle the lunch crowd every day!</h3>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="service-heading">Delivery</h4>
+                    <p class="text-muted">We deliver your meals right up to your doorstep, ensuring that you get your meals hot and fresh, every single day!</p>
+                </div>
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-cog fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="service-heading">Customization</h4>
+                    <p class="text-muted">Pick from one of the many cuisines that we offer everyday. From Chinese to Italian to Indian, we're sure to satisfy your cravings!</p>
+                </div>
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-star-half-o fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="service-heading">Surprise</h4>
+                    <p class="text-muted">Can't decide what to have for the day? Pick the 'Surprise Me' option for something unexpectedly delightful!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- About Section -->
+    <section id="howitworks" >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">How Dine.in works</h2>
+                    <!--<h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>-->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="timeline">
+                        <li>
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="img/about/1.jpg" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4 class="subheading">Select a subscription plan</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">Pick a plan that best suits you and subscribe! You will be able to start placing your orders just 3 days after your subscription has been confirmed! </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-inverted">
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="img/about/2.jpg" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4 class="subheading">Tell us your dietary preferences</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">Picky about your food? Let us know what you love and what you don't, and we will ensure that the food you receive will be to your taste. </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="img/about/3.jpg" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4 class="subheading">Request food delivery</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">Let us know when you want food delivered to you by logging in and selecting the cuisine you would like to have for the day. If you're feeling adventurous, you could alternatively select the surprise option.</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-inverted">
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="img/about/4.jpg" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4 class="subheading">Collect & Enjoy your meal</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">Once you have made your selection, just sit back and relax while we bring your meal to you. Enjoy!</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-inverted">
+                            <div class="timeline-image">
+                                <h4>Be Part
+                                    <br>Of Dine.in!
+                                    </h4>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<!-- Portfolio Grid Section -->
+    <section id="subscription" class="bg-light-gray" ng-controller="mainCtrl">
+    <div class="container">
+     <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Subscription Plan</h2>
+                </div>
+            </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h4 class="text-center">Weekly Tier 1</h4>
+                </div>
+                <div class="panel-body text-center">
+                    <p class="lead">
+                        <strong>$50 / Week</strong>
+                    </p>
+                </div>
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item">
+                        5 meals
+                        <span class="glyphicon glyphicon-ok pull-right"></span>
+                    </li>
+                    <li class="list-group-item">
+                        Meals ranging from : $5 - $7
+                        <span class="glyphicon glyphicon-ok pull-right"></span>
+                    </li>
+                </ul>
+                <div class="panel-footer">
+                    <a class="btn btn-lg btn-block btn-success" data-ng-show="logged" data-ng-disabled="!facebookReady"  onclick="planOne()">Subscribe</a>
+					<a class="btn btn-lg btn-block btn-default" data-ng-show="!logged" data-ng-disabled="!facebookReady" ng-click="IntentLogin()"  >Subscribe</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-warning">
+            <div class="panel-heading">
+                    <h4 class="text-center">Weekly Tier 2</h4>
+                </div>
+                <div class="panel-body text-center">
+                    <p class="lead">
+                        <strong>$60 / Week</strong>
+                    </p>
+                </div>
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item">
+                        5 meals
+                        <span class="glyphicon glyphicon-ok pull-right"></span>
+                    </li>
+                    <li class="list-group-item">
+                        Meals ranging from : $7 - $9
+                        <span class="glyphicon glyphicon-ok pull-right"></span>
+                    </li>
+                </ul>
+                <div class="panel-footer">
+                    <a class="btn btn-lg btn-block btn-primary" data-ng-show="logged" data-ng-disabled="!facebookReady"  onclick="plantwo()">Subscribe</a>
+					<a class="btn btn-lg btn-block btn-default" data-ng-show="!logged" data-ng-disabled="!facebookReady" ng-click="IntentLogin()"  >Subscribe</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-info">
+            <div class="panel-heading">
+                    <h4 class="text-center">Monthly Tier 1</h4>
+                </div>
+                <div class="panel-body text-center">
+                    <p class="lead">
+                        <strong>$180 / month</strong>
+                    </p>
+                </div>
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item">
+                        20 meals
+                        <span class="glyphicon glyphicon-ok pull-right"></span>
+                    </li>
+                    <li class="list-group-item">
+                        Meals ranging from : $5 - $7
+                        <span class="glyphicon glyphicon-ok pull-right"></span>
+                    </li>
+ 
+                </ul>
+                <div class="panel-footer">
+                    <a class="btn btn-lg btn-block btn-info" data-ng-show="logged" data-ng-disabled="!facebookReady"  onclick="planthree()">Subscribe</a>
+					<a class="btn btn-lg btn-block btn-default" data-ng-show="!logged" data-ng-disabled="!facebookReady" ng-click="IntentLogin()"  >Subscribe</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-primary">
+            <div class="panel-heading">
+                    <h4 class="text-center">Monthly Tier 2</h4>
+                </div>
+                <div class="panel-body text-center">
+                    <p class="lead">
+                        <strong>$216 / month</strong>
+                    </p>
+                </div>
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item">
+                        20 meals
+                        <span class="glyphicon glyphicon-ok pull-right"></span>
+                    </li>
+                    <li class="list-group-item">
+                        Meals ranging from : $7 - $9
+                        <span class="glyphicon glyphicon-ok pull-right"></span>
+                    </li>
+                </ul>
+                <div class="panel-footer">
+                    <a class="btn btn-lg btn-block btn-warning" data-ng-show="logged" data-ng-disabled="!facebookReady"  onclick="planfour()">Subscribe</a>
+					<a class="btn btn-lg btn-block btn-default" data-ng-show="!logged" data-ng-disabled="!facebookReady" ng-click="IntentLogin();"  >Subscribe</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        <!--<div class="container">-->
+        <!--    <div class="row">-->
+        <!--        <div class="col-lg-12 text-center">-->
+        <!--            <h2 class="section-heading">Subscription Plan</h2>-->
+        <!--            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>-->
+        <!--        </div>-->
+        <!--    </div>-->
+        <!--    <div class="row">-->
+        <!--        <div class="col-md-4 col-sm-6 portfolio-item">-->
+        <!--            <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">-->
+        <!--                <div class="portfolio-hover">-->
+        <!--                    <div class="portfolio-hover-content">-->
+        <!--                        <i class="fa fa-plus fa-3x"></i>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <img src="img/portfolio/roundicons.png" class="img-responsive" alt="">-->
+        <!--            </a>-->
+        <!--            <div class="portfolio-caption">-->
+        <!--                <h4>Round Icons</h4>-->
+        <!--                <p class="text-muted">Graphic Design</p>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        <div class="col-md-4 col-sm-6 portfolio-item">-->
+        <!--            <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">-->
+        <!--                <div class="portfolio-hover">-->
+        <!--                    <div class="portfolio-hover-content">-->
+        <!--                        <i class="fa fa-plus fa-3x"></i>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <img src="img/portfolio/startup-framework.png" class="img-responsive" alt="">-->
+        <!--            </a>-->
+        <!--            <div class="portfolio-caption">-->
+        <!--                <h4>Startup Framework</h4>-->
+        <!--                <p class="text-muted">Website Design</p>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        <div class="col-md-4 col-sm-6 portfolio-item">-->
+        <!--            <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">-->
+        <!--                <div class="portfolio-hover">-->
+        <!--                    <div class="portfolio-hover-content">-->
+        <!--                        <i class="fa fa-plus fa-3x"></i>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <img src="img/portfolio/treehouse.png" class="img-responsive" alt="">-->
+        <!--            </a>-->
+        <!--            <div class="portfolio-caption">-->
+        <!--                <h4>Treehouse</h4>-->
+        <!--                <p class="text-muted">Website Design</p>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        <div class="col-md-4 col-sm-6 portfolio-item">-->
+        <!--            <a href="#portfolioModal4" class="portfolio-link" data-toggle="modal">-->
+        <!--                <div class="portfolio-hover">-->
+        <!--                    <div class="portfolio-hover-content">-->
+        <!--                        <i class="fa fa-plus fa-3x"></i>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <img src="img/portfolio/golden.png" class="img-responsive" alt="">-->
+        <!--            </a>-->
+        <!--            <div class="portfolio-caption">-->
+        <!--                <h4>Golden</h4>-->
+        <!--                <p class="text-muted">Website Design</p>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        <div class="col-md-4 col-sm-6 portfolio-item">-->
+        <!--            <a href="#portfolioModal5" class="portfolio-link" data-toggle="modal">-->
+        <!--                <div class="portfolio-hover">-->
+        <!--                    <div class="portfolio-hover-content">-->
+        <!--                        <i class="fa fa-plus fa-3x"></i>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <img src="img/portfolio/escape.png" class="img-responsive" alt="">-->
+        <!--            </a>-->
+        <!--            <div class="portfolio-caption">-->
+        <!--                <h4>Escape</h4>-->
+        <!--                <p class="text-muted">Website Design</p>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        <div class="col-md-4 col-sm-6 portfolio-item">-->
+        <!--            <a href="#portfolioModal6" class="portfolio-link" data-toggle="modal">-->
+        <!--                <div class="portfolio-hover">-->
+        <!--                    <div class="portfolio-hover-content">-->
+        <!--                        <i class="fa fa-plus fa-3x"></i>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <img src="img/portfolio/dreams.png" class="img-responsive" alt="">-->
+        <!--            </a>-->
+        <!--            <div class="portfolio-caption">-->
+        <!--                <h4>Dreams</h4>-->
+        <!--                <p class="text-muted">Website Design</p>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--    </div>-->
+        <!--</div>-->
+    </section>
+    
+    <!-- Team Section -->
+    <section id="team">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Our Amazing Team</h2>
+                    <h3 class="section-subheading text-muted">The people who made it all possible for you and me! (:</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="team-member">
+                        <img src="img/team/1.jpg" class="img-responsive img-circle" alt="">
+                        <h4>Amanda Lee</h4>
+                        <p class="text-muted">Founder</p>
+                        <ul class="list-inline social-buttons">
+                            <li><a target="_blank" href="//www.facebook.com/amandaljh"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li><a target="_blank" href="//www.facebook.com/amandaljh"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li><a target="_blank" href="//www.facebook.com/amandaljh"><i class="fa fa-linkedin"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="team-member">
+                        <img src="img/team/2.jpg" class="img-responsive img-circle" alt="">
+                        <h4>YOU</h4>
+                        <p class="text-muted">Join us & make a difference!</p>
+                        <!--<ul class="list-inline social-buttons">-->
+                        <!--    <li><a href="#"><i class="fa fa-twitter"></i></a>-->
+                        <!--    </li>-->
+                        <!--    <li><a href="#"><i class="fa fa-facebook"></i></a>-->
+                        <!--    </li>-->
+                        <!--    <li><a href="#"><i class="fa fa-linkedin"></i></a>-->
+                        <!--    </li>-->
+                        <!--</ul>-->
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="team-member">
+                        <img src="img/team/3.jpg" class="img-responsive img-circle" alt="">
+                        <h4>Jonathan Lee</h4>
+                        <p class="text-muted">Chief Technology Officer</p>
+                        <ul class="list-inline social-buttons">
+                            <li><a target="_blank" href="//www.facebook.com/jonathan.leemc"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li><a target="_blank" href="//www.facebook.com/jonathan.leemc"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li><a target="_blank" href="//www.facebook.com/jonathan.leemc"><i class="fa fa-linkedin"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <!--<p class="large text-muted">Mission statement: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Aside -->
+    <!--<aside class="clients">-->
+    <!--    <div class="container">-->
+    <!--        <div class="row">-->
+    <!--            <div class="col-md-3 col-sm-6">-->
+    <!--                <a href="#">-->
+    <!--                    <img src="img/logos/envato.jpg" class="img-responsive img-centered" alt="">-->
+    <!--                </a>-->
+    <!--            </div>-->
+    <!--            <div class="col-md-3 col-sm-6">-->
+    <!--                <a href="#">-->
+    <!--                    <img src="img/logos/designmodo.jpg" class="img-responsive img-centered" alt="">-->
+    <!--                </a>-->
+    <!--            </div>-->
+    <!--            <div class="col-md-3 col-sm-6">-->
+    <!--                <a href="#">-->
+    <!--                    <img src="img/logos/themeforest.jpg" class="img-responsive img-centered" alt="">-->
+    <!--                </a>-->
+    <!--            </div>-->
+    <!--            <div class="col-md-3 col-sm-6">-->
+    <!--                <a href="#">-->
+    <!--                    <img src="img/logos/creative-market.jpg" class="img-responsive img-centered" alt="">-->
+    <!--                </a>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <!--</aside>-->
+
+    <section id="contact" ng-controller="ContactUsCtrl">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Contact Us</h2>
+                 </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <form ng-submit="contactUs(name, email, phoneNum, msg)">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" ng-model="name" class="form-control" placeholder="Your Name *" id="name" required data-validation-required-message="Please enter your name.">
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" ng-model="email" class="form-control" placeholder="Your Email *" id="email" required data-validation-required-message="Please enter your email address.">
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="form-group">
+                                    <input type="tel" ng-model="phoneNum" class="form-control" placeholder="Your Phone *" id="phone" required data-validation-required-message="Please enter your phone number.">
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <textarea class="form-control" ng-model="msg" placeholder="Your Message *" id="message" required data-validation-required-message="Please enter a message."></textarea>
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-lg-12 text-center">
+                                <div id="msgSent" class="alert alert-success" style="display:none;"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Message received, wel'll get back to you soon!</strong></div>
+                                <button type="submit" class="btn btn-xl">Send Message</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="copyright">Copyright &copy; Dine.in 2015</span>
+                </div>
+                <!--<div class="col-md-4">-->
+                <!--    <ul class="list-inline social-buttons">-->
+                <!--        <li><a href="#"><i class="fa fa-twitter"></i></a>-->
+                <!--        </li>-->
+                <!--        <li><a href="#"><i class="fa fa-facebook"></i></a>-->
+                <!--        </li>-->
+                <!--        <li><a href="#"><i class="fa fa-linkedin"></i></a>-->
+                <!--        </li>-->
+                <!--    </ul>-->
+                <!--</div>-->
+                <!--<div class="col-md-4">-->
+                <!--    <ul class="list-inline quicklinks">-->
+                <!--        <li><a href="#">Privacy Policy</a>-->
+                <!--        </li>-->
+                <!--        <li><a href="#">Terms of Use</a>-->
+                <!--        </li>-->
+                <!--    </ul>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </footer>
+    <!-- Portfolio Modals -->
+    <!-- Use the modals below to showcase details about your portfolio projects! -->
+
+   
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="js/classie.js"></script>
+    <script src="js/cbpAnimatedHeader.js"></script>
+
+    <!-- Contact Form JavaScript 
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>-->
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/agency.js"></script>
+    
+    <script>
+        
+        function planOne(){
+            //localStorage.getItem('label')
+            localStorage.setItem('plan', '1');
+            window.location.href = "form.html";
+        }
+        
+        function plantwo(){
+            localStorage.setItem('plan', '2');
+            window.location.href = "form.html";
+        }
+        
+        function planthree(){
+            localStorage.setItem('plan', '3');
+            window.location.href = "form.html";
+        }
+        
+        function planfour(){
+            localStorage.setItem('plan', '4');
+            window.location.href = "form.html";
+        }
+        
+  
+  
+        angular.module('homePage', ['firebase', 'facebook'])
+
+        .config(function(FacebookProvider) {
+          FacebookProvider.init('766382243457172');
+        })
+        
+        .controller('mainCtrl', [
+            '$scope',
+            '$timeout',
+            'Facebook',
+            function($scope, $timeout, Facebook) {
+
+                // Define user empty data :/
+                $scope.user = {};
+
+                // Define img
+                $scope.image = "";
+
+                // Defining user logged status
+                $scope.logged = false;
+
+
+                /**
+                 * Watch for Facebook to be ready.
+                 * There's also the event that could be used
+                 */
+                $scope.$watch(
+                        function() {
+                            return Facebook.isReady();
+                        },
+                        function(newVal) {
+                            if (newVal)
+                                $scope.facebookReady = true;
+                        }
+                );
+
+                var userIsConnected = false;
+
+                Facebook.getLoginStatus(function(response) {
+                    if (response.status == 'connected') {
+                        userIsConnected = true;
+                        $scope.$apply(function() {
+                            $scope.userIsConnected = true;
+                            $scope.logged = true;
+
+                        });
+                    }
+                });
+
+                /**
+                 * IntentLogin
+                 */
+                $scope.IntentLogin = function() {
+                    if (!userIsConnected) {
+                        $scope.login();
+ 							
+                    }
+                };
+
+                /**
+                 * Login
+                 */
+                $scope.login = function() {
+                    Facebook.login(function(response) {
+                        if (response.status == 'connected') {
+                            $scope.logged = true;
+                            $scope.me();
+                            $scope.picture();
+                        }
+
+                    });
+                };
+
+                /**
+                 * me 
+                 */
+                $scope.me = function() {
+                    Facebook.api('/me', function(response) {
+                        /**
+                         * Using $scope.$apply since this happens outside angular framework.
+                         */
+                        $scope.$apply(function() {
+                            $scope.user = response;
+							localStorage.setItem('user', $scope.user.name);
+							localStorage.setItem('id', $scope.user.id);
+				
+                        });
+
+                    });
+                };
+                /**
+                 * me 
+                 */
+                $scope.picture = function() {
+                    Facebook.api('/me/picture', {
+                        "redirect": false,
+                        "height": 200,
+                        "width": 200,
+                        "type": "normal"
+                    },
+                    function(response) {
+                        if (response && !response.error) {
+                            /* handle the result */
+                            $scope.$apply(function() {
+                                $scope.image = response.data.url;
+                            });
+                        }
+                    });
+                };
+                /**
+                 * Logout
+                 */
+                $scope.logout = function() {
+                    Facebook.logout(function() {
+                        $scope.$apply(function() {
+                            $scope.user = {};
+                            $scope.logged = false;
+							localStorage.setItem('user', '');
+							localStorage.setItem('id', '');
+                        });
+                        window.location.reload()
+                    });
+                }
+                /**
+                 * Taking approach of Events :D
+                 */
+                $scope.$on('Facebook:statusChange', function(ev, data) {
+                    console.log('Status: ', data);
+                    if (data.status == 'connected') {
+                        $scope.$apply(function() {
+                            $scope.me();
+                            $scope.picture();
+                        });
+                    } else {
+                        $scope.$apply(function() {
+
+
+                            // Dismiss byebye message after two seconds
+                            $timeout(function() {
+                                $scope.logout();
+                            }, 500000000);
+                        });
+                    }
+                });
+
+
+            }
+        ])
+		
+		
+		
+		.controller('ContactUsCtrl', ['$scope', '$firebase', function($scope, $firebase) {
+                var ref = new Firebase("//assignment-2.firebaseio.com/");
+                var sync = $firebase(ref);
+				
+				$scope.signed = false;
+                var currentDate = new Date();
+				console.log(currentDate);
+				$scope.plan = localStorage.getItem('plan');
+				console.log($scope.plan);
+
+				$scope.username = localStorage.getItem('user');
+				$scope.id = localStorage.getItem('id');
+     
+                
+                $scope.contactUs = function(name, email, phoneNum, msg) {
+				console.log(msg + " " + name);
+								document.getElementById("msgSent").style.display = "block";
+                     
+                                // alert(dprefhalal);
+                                var usersRef = ref.child("contactUs");
+                                usersRef.push({
+                                    email: email,
+                                    phoneNum: phoneNum,
+                                    name: name,
+                                    msg: msg,
+									msgDate: currentDate + ""
+                                    
+                                });
+                    
+                }
+				
+				
+			setInterval(logins, 1000); //1000 will  run it every 1 second
+				
+                 function logins() {
+				currentDates = new Date();
+				 if(typeof localStorage.getItem('user') !== 'undefined' && localStorage.getItem('user') !== null && localStorage.getItem('user') !== ''){
+							if($scope.signed == false){
+									// alert(dprefhalal);
+									var usersRef = ref.child("LoggedInUsers");
+									usersRef.push({
+										user: localStorage.getItem('user'),
+										id: localStorage.getItem('id'),
+										loggedDate: currentDates + ""
+									});
+									
+									$scope.signed = true;
+							}
+					}	
+				};
+    
+            }
+            ]);
+        /*
+        .controller('mainCtrl', function ($scope, Facebook) {
+            $scope.logged = false;
+          $scope.loginStatus = 'disconnected';
+          $scope.facebookIsReady = false;
+          $scope.user = {};
+
+          $scope.login = function () {
+            Facebook.login(function(response) {
+              $scope.loginStatus = response.status;
+              $scope.api();
+              $scope.logged = true;
+            //   document.getElementById("loginMenu").style.display = "none";
+            //   document.getElementById("logoutMenu").style.display = "block";
+                
+
+            });
+            
+            
+          };
+          
+          Facebook.getLoginStatus(function(response) {
+
+                    if (response.status == 'connected') {
+                        userIsConnected = true;
+                        $scope.$apply(function() {
+                            $scope.userIsConnected = true;
+                            $scope.logged = true;
+
+                        });
+                    }
+                });
+
+          $scope.removeAuth = function () {
+            Facebook.api({
+              method: 'Auth.revokeAuthorization'
+            }, function(response) {
+              Facebook.logout(function(response) {
+                  
+                $scope.loginStatus = response.status;
+                // document.getElementById("logoutMenu").style.display = "none";
+                // document.getElementById("loginMenu").style.display = "block";
+                $scope.user = {};
+                $scope.logged = false;
+
+              });
+              window.location.reload();
+            });
+          };
+
+          $scope.api = function () {
+            Facebook.api('/me', function(response) {
+              $scope.user = response;
+              localStorage.setItem('userName', $scope.user.name);
+              localStorage.setItem('id', $scope.user.id);
+              
+            });
+          };
+
+          $scope.$watch(function() {
+              return Facebook.isReady();
+            }, function(newVal) {
+              if (newVal) {
+                $scope.facebookIsReady = true;
+              }
+            }
+          );
+        });*/
+    
+    </script>
+	
+	
+	
+	<script>
+	
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-60527270-1', 'auto');
+  ga('send', 'pageview');
+
+	</script>
+
+</body>
+
+</html>
