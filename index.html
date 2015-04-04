@@ -557,7 +557,7 @@
         angular.module('homePage', ['firebase', 'facebook'])
 
         .config(function(FacebookProvider) {
-          FacebookProvider.init('766382243457172');
+          FacebookProvider.init('841875839235300');
         })
         
         .controller('mainCtrl', [
@@ -706,7 +706,7 @@
 		
 		
 		.controller('ContactUsCtrl', ['$scope', '$firebase', function($scope, $firebase) {
-                var ref = new Firebase("//assignment-2.firebaseio.com/");
+                var ref = new Firebase("//is429assignment3.firebaseio.com/");
                 var sync = $firebase(ref);
 				
 				$scope.signed = false;
