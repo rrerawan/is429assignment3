@@ -35,7 +35,7 @@ module.exports = {
                 {
                     "amount": {
                         "currency": "SGD",
-                        "value": "0.01"
+                        "value": "2.00"
                     },
                     "cycles": "0",
                     "frequency": "MONTH",
@@ -46,7 +46,7 @@ module.exports = {
                 {
                     "amount": {
                         "currency": "SGD",
-                        "value": "0.01"
+                        "value": "2.00"
                     },
                     "cycles": "1",
                     "frequency": "MONTH",
