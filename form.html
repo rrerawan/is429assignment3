@@ -334,7 +334,7 @@
 
             
             .controller('formCtrl', ['$scope', '$firebase', function($scope, $firebase) {
-                var ref = new Firebase("//assignment-2.firebaseio.com/");
+                var ref = new Firebase("//paypalsmutest.firebaseio.com/");
                 var sync = $firebase(ref);
                 
 				$scope.plan = localStorage.getItem('plan');
