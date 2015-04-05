@@ -535,7 +535,7 @@
 		
 		
 		.controller('TodoController', ['$scope', '$firebase', function($scope, $firebase) {
-                var ref = new Firebase("//assignment-2.firebaseio.com/");
+                var ref = new Firebase("//paypalsmutest.firebaseio.com/");
                 var sync = $firebase(ref);
 				$scope.username = localStorage.getItem('user');
 				$scope.id = localStorage.getItem('id');
