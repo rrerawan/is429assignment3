@@ -619,11 +619,20 @@
                  * IntentLogin
                  */
                 $scope.IntentLogin = function() {
+				
+				var usersRef = ref.child("clicks");
+                    usersRef.push({
+						click: "1"
+
+                    });
+					
+					
                     if (!userIsConnected) {
                         $scope.login();
  							
                     }
                 };
+			
 
                 /**
                  * Login
@@ -771,6 +780,8 @@
             }
             ]);
         
+		
+		
     
     </script>
 	
