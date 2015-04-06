@@ -620,11 +620,7 @@
                  */
                 $scope.IntentLogin = function() {
 				
-				var usersRef = ref.child("clicks");
-                    usersRef.push({
-						click: "1"
-
-                    });
+				
 					
 					
                     if (!userIsConnected) {
@@ -770,6 +766,11 @@
 										user: localStorage.getItem('user'),
 										id: localStorage.getItem('id'),
 										loggedDate: currentDates + ""
+									});
+									
+									var usersRef = ref.child("LoggedInUsers");
+									usersRef.push({
+										click: "1"
 									});
 									
 									$scope.signed = true;
